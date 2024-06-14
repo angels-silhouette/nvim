@@ -1,8 +1,8 @@
-local lsp = require('lsp-zero').preset({})
-
 -- neovim
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
+vim.g.mapleader = " "
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -19,68 +19,29 @@ vim.termguicolours = true
 
 vim.opt.scrolloff = 10
 
+-- Colourscheme
+local dracula = require('dracula')
+dracula.setup({
+    show_end_of_buffer = true,
+    transparent_bg = true,
+    lualine_bg_color = "#44475a",
+    italic_comment = true,
+    overrides = {},
+})
+
+vim.cmd [[colorscheme dracula]]
+
 -- LSP
+local lsp = require('lsp-zero').preset({})
 lsp.on_attach(function(client, bufnr)
     lsp.default_keymaps({ buffer = bufnr })
 end)
 
--- (Optional) Configure lua language server for neovim
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
 
 lsp.setup()
 
--- indent lines
 require("ibl").setup()
-
--- neotree
-require("neo-tree").setup({
-    default_component_configs = {
-        icon = {
-            folder_empty = "󰜌",
-            folder_empty_open = "󰜌",
-        },
-        git_status = {
-            symbols = {
-                renamed  = "󰁕",
-                unstaged = "󰄱",
-            },
-        },
-    },
-    document_symbols = {
-        kinds = {
-            File = { icon = "󰈙", hl = "Tag" },
-            Namespace = { icon = "󰌗", hl = "Include" },
-            Package = { icon = "󰏖", hl = "Label" },
-            Class = { icon = "󰌗", hl = "Include" },
-            Property = { icon = "󰆧", hl = "@property" },
-            Enum = { icon = "󰒻", hl = "@number" },
-            Function = { icon = "󰊕", hl = "Function" },
-            String = { icon = "󰀬", hl = "String" },
-            Number = { icon = "󰎠", hl = "Number" },
-            Array = { icon = "󰅪", hl = "Type" },
-            Object = { icon = "󰅩", hl = "Type" },
-            Key = { icon = "󰌋", hl = "" },
-            Struct = { icon = "󰌗", hl = "Type" },
-            Operator = { icon = "󰆕", hl = "Operator" },
-            TypeParameter = { icon = "󰊄", hl = "Type" },
-            StaticMethod = { icon = '󰠄 ', hl = 'Function' },
-        }
-    },
-    -- Add this section only if you've configured source selector.
-    source_selector = {
-        sources = {
-            { source = "filesystem", display_name = " 󰉓 Files " },
-            { source = "git_status", display_name = " 󰊢 Git " },
-        },
-    },
-    filesystem = {
-        filtered_items = {
-            hide_dotfiles = false,
-            hide_gitignored = true,
-        },
-    },
-})
-
 
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
@@ -99,4 +60,46 @@ require 'nvim-treesitter.configs'.setup {
         query = 'rainbow-parens',
         strategy = require('ts-rainbow').strategy.global,
     }
+}
+
+-- lualine
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
+    },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
 }

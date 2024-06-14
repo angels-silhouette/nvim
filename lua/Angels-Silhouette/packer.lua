@@ -9,23 +9,19 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use 'theprimeagen/harpoon'
     use 'nvim-lua/plenary.nvim'
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
     use "lukas-reineke/indent-blankline.nvim"
     use 'tpope/vim-fugitive'
+    use 'Mofiqul/dracula.nvim'
     use { 'akinsho/git-conflict.nvim', tag = "*", config = function()
         require('git-conflict').setup()
     end }
     use 'edluffy/hologram.nvim'
     use 'matveyt/neoclip'
     use 'HiPhish/nvim-ts-rainbow2'
-    use {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
-        requires = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-        }
-    }
     use {
         'VonHeikemen/lsp-zero.nvim',
         branch = 'v2.x',
