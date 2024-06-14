@@ -2,8 +2,6 @@
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
-vim.g.mapleader = " "
-
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 

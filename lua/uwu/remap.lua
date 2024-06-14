@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 -- file manager
 vim.keymap.set("n", "<leader><Tab>", vim.cmd.Ex)
 
