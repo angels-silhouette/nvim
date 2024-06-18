@@ -1,5 +1,14 @@
 vim.g.mapleader = " "
 
+-- settings
+vim.keymap.set("n", "<leader>z", function()
+    if vim.opt.wrap:get() then
+        vim.opt.wrap = false
+    else
+        vim.opt.wrap = true
+    end
+end)
+
 -- file manager
 vim.keymap.set("n", "<leader><Tab>", vim.cmd.Ex)
 
