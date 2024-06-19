@@ -125,3 +125,8 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 require("ibl").setup { indent = { highlight = highlight } }
+
+-- hologram
+require('hologram').setup{
+    auto_display = true
+}
