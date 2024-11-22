@@ -40,3 +40,11 @@ vim.keymap.set("n", "<C-l>", harpoon_ui.toggle_quick_menu)
 -- terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>>", vim.cmd.terminal)
+
+-- colour scheme
+vim.keymap.set("n", "<leader>1", function()
+    vim.cmd [[colorscheme dracula]]
+end)
+vim.keymap.set("n", "<leader>2", function()
+    vim.cmd [[colorscheme matrix]]
+end)
