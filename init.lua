@@ -1,1 +1,1 @@
-require("angels_silhouette")
+require("angels_silhouette.init")

@@ -1,6 +1,7 @@
 -- neovim
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.signcolumn = 'yes'
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -30,16 +31,122 @@ dracula.setup({
 vim.cmd [[colorscheme dracula]]
 
 -- LSP
-local lsp = require('lsp-zero').preset({})
-lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({ buffer = bufnr })
-end)
+require('mason').setup()
+require('mason-lspconfig').setup({
+    handlers = {
+        function(server_name)
+            require('lspconfig')[server_name].setup({})
+        end,
+    },
+})
 
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+local cmp = require('cmp')
+cmp.setup({
+    preselect = 'item',
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'buffer' },
+        { name = 'calc' },
+        { name = 'path' },
+        { name = 'latex_symbols' },
+        { name = 'nvim_lua' },
+        { name = 'luasnip' }
+    },
+    snippet = {
+        expand = function(args)
+            require 'luasnip'.lsp_expand(args.body)
+        end,
+    },
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            local luasnip = require('luasnip')
+            local col = vim.fn.col('.') - 1
 
-lsp.setup()
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = 'select' })
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                fallback()
+            else
+                cmp.complete()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            local luasnip = require('luasnip')
 
-require("ibl").setup()
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = 'select' })
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    }),
+})
+
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' }
+    }
+})
+
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        {
+            name = 'cmdline',
+            option = {
+                ignore_cmds = { 'Man', '!' }
+            }
+        }
+    })
+})
+
+local buffer_autoformat = function(bufnr)
+    local group = 'lsp_autoformat'
+    vim.api.nvim_create_augroup(group, { clear = false })
+    vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        buffer = bufnr,
+        group = group,
+        desc = 'LSP format on save',
+        callback = function()
+            -- note: do not enable async formatting
+            vim.lsp.buf.format({ async = false, timeout_ms = 10000 })
+        end,
+    })
+end
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(event)
+        local id = vim.tbl_get(event, 'data', 'client_id')
+        local client = id and vim.lsp.get_client_by_id(id)
+        if client == nil then
+            return
+        end
+
+        -- make sure there is at least one client with formatting capabilities
+        if client.supports_method('textDocument/formatting') then
+            buffer_autoformat(event.buf)
+        end
+    end
+})
 
 -- treesitter
 require 'nvim-treesitter.configs'.setup {
@@ -52,12 +159,6 @@ require 'nvim-treesitter.configs'.setup {
         enable = true,
         additional_vim_regex_highlighting = true,
     },
-
-    rainbow = {
-        enable = true,
-        query = 'rainbow-parens',
-        strategy = require('ts-rainbow').strategy.global,
-    }
 }
 
 -- lualine
@@ -125,8 +226,3 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 
 require("ibl").setup { indent = { highlight = highlight } }
-
--- hologram
-require('hologram').setup{
-    auto_display = true
-}
