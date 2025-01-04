@@ -28,6 +28,41 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end,
 })
 
+-- completion
+local cmp = require('cmp')
+cmp.setup({
+    mapping = cmp.mapping.preset.insert({
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(4),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            local luasnip = require('luasnip')
+            local col = vim.fn.col('.') - 1
+
+            if cmp.visible() then
+                cmp.select_next_item({ behavior = 'select' })
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+                fallback()
+            else
+                cmp.complete()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            local luasnip = require('luasnip')
+
+            if cmp.visible() then
+                cmp.select_prev_item({ behavior = 'select' })
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+    }),
+})
+
 -- file manager
 vim.keymap.set("n", "<leader><Tab>", vim.cmd.Ex)
 
@@ -51,7 +86,7 @@ local harpoon_mark = require("harpoon.mark")
 vim.keymap.set("n", "<leader>a", harpoon_mark.add_file)
 
 local harpoon_ui = require("harpoon.ui")
-vim.keymap.set("n", "<C-l>", harpoon_ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 
 -- terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
