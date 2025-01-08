@@ -3,3 +3,4 @@ require("angels_silhouette.set")
 require("angels_silhouette.packer")
 
 vim.cmd [[PackerSync]]
+vim.cmd [[MasonUpdate]]
