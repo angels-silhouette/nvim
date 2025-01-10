@@ -9,6 +9,17 @@ vim.keymap.set("n", "<leader>z", function()
     end
 end)
 
+-- tabs
+vim.keymap.set("n", "<leader>n", vim.cmd.tabn)
+vim.keymap.set("n", "<leader>p", vim.cmd.tabp)
+vim.keymap.set("n", "<leader>nt", vim.cmd.tabnew)
+
+-- resize
+vim.keymap.set("n", "<C-Up>", "<cmd>resize -2<cr>")
+vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>")
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>")
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
+
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
