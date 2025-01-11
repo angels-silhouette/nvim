@@ -12,9 +12,6 @@ return require('packer').startup(function(use)
     use 'matveyt/neoclip'
     use 'theprimeagen/harpoon'
 
-    -- Markdown preview
-    use 'OXY2DEV/markview.nvim'
-
     -- Git
     use 'tpope/vim-fugitive'
     use {
