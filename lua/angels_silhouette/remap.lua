@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>z", function()
     end
 end)
 
+-- preview
+vim.keymap.set("n", "<leader>pv", "<cmd>Markview splitToggle<cr>")
+
 -- tabs
 vim.keymap.set("n", "<leader>n", vim.cmd.tabn)
 vim.keymap.set("n", "<leader>p", vim.cmd.tabp)
