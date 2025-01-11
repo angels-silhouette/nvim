@@ -91,6 +91,7 @@ vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 
 -- git
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>")
 
 -- harpoon
 local harpoon_mark = require("harpoon.mark")
@@ -103,9 +104,19 @@ vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>>", vim.cmd.terminal)
 
+-- git conflict
+--[[
+co -- choose ours
+ct -- choose theirs
+cb -- choose both
+c0 -- choose none
+[x -- next conflict
+]x -- previous conflict
+--]]
+
 -- colour scheme
 vim.keymap.set("n", "<leader>1", function()
-    vim.cmd [[colorscheme dracula]]
+    vim.cmd [[colorscheme catppuccin]]
 
     local highlight = {
         "RainbowRed",

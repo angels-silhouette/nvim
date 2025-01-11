@@ -9,15 +9,15 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- Clipboard
-    use 'matveyt/neoclip'
     use 'theprimeagen/harpoon'
 
     -- Git
     use 'tpope/vim-fugitive'
     use {
         'akinsho/git-conflict.nvim',
-        tag = "*"
+        tag = "*",
     }
+    use 'lewis6991/gitsigns.nvim'
 
     -- Auto pair
     use {
@@ -25,7 +25,8 @@ return require('packer').startup(function(use)
         event = "InsertEnter",
         config = function()
             require("nvim-autopairs").setup {}
-        end }
+        end
+    }
 
     -- Fuzzy find
     use {
@@ -64,6 +65,6 @@ return require('packer').startup(function(use)
     }
 
     -- Themes
-    use 'Mofiqul/dracula.nvim'
     use 'iruzo/matrix-nvim'
+    use "catppuccin/nvim"
 end)
