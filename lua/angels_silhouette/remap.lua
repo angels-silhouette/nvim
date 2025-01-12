@@ -75,7 +75,7 @@ cmp.setup({
 })
 
 -- file manager
-vim.keymap.set("n", "<leader><Tab>", vim.cmd.Ex)
+vim.keymap.set("n", "<leader><Tab>", "<cmd>Oil<cr>")
 
 -- panels
 vim.keymap.set("n", "<leader>v", vim.cmd.vnew)
