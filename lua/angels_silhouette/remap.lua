@@ -91,6 +91,9 @@ vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 
 -- git
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch<cr>")
+vim.keymap.set("n", "<leader>gp", "<cmd>Git pull<cr>")
+vim.keymap.set("n", "<leader>gP", "<cmd>Git push<cr>")
 vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>")
 
 -- harpoon
