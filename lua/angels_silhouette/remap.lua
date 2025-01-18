@@ -95,9 +95,8 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Gitsigns blame<cr>")
 
 -- harpoon
 local harpoon_mark = require("harpoon.mark")
-vim.keymap.set("n", "<leader>a", harpoon_mark.add_file)
-
 local harpoon_ui = require("harpoon.ui")
+vim.keymap.set("n", "<leader>a", harpoon_mark.add_file)
 vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 
 -- terminal
@@ -141,6 +140,7 @@ vim.keymap.set("n", "<leader>1", function()
 
     require("ibl").setup { indent = { highlight = highlight } }
 end)
+
 vim.keymap.set("n", "<leader>2", function()
     vim.cmd [[colorscheme matrix]]
     require("ibl").setup()
