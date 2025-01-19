@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
 
     -- Clipboard
     use 'theprimeagen/harpoon'
-    
+
     -- File system
     use "stevearc/oil.nvim"
 

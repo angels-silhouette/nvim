@@ -1,3 +1,4 @@
+---@diagnostic disable: unused-local
 -- neovim
 vim.opt.nu = true
 vim.opt.relativenumber = true

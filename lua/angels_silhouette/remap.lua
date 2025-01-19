@@ -2,6 +2,7 @@ vim.g.mapleader = " "
 
 -- wordwrap
 vim.keymap.set("n", "<leader>z", function()
+---@diagnostic disable-next-line: undefined-field
     if vim.opt.wrap:get() then
         vim.opt.wrap = false
     else
