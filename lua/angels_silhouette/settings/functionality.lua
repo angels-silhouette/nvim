@@ -18,6 +18,8 @@ vim.termguicolours = true
 
 vim.opt.scrolloff = 10
 
+vim.opt.clipboard = "unnamedplus"
+
 -- File system
 require("oil").setup({
     -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
