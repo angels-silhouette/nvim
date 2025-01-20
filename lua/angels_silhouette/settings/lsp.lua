@@ -19,12 +19,12 @@ cmp.setup({
         { name = 'calc' },
         { name = 'path' },
         { name = 'nvim_lua' },
-        { name = 'luasnip' }
+        { name = 'luasnip', option = { show_autosnippets = true,  use_show_condition = false } }
     },
     snippet = {
         expand = function(args)
             require 'luasnip'.lsp_expand(args.body)
-        end,
+        end
     },
     window = {
         completion = cmp.config.window.bordered(),
