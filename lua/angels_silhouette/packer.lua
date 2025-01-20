@@ -53,6 +53,7 @@ return require('packer').startup(function(use)
                 use 'saadparwaiz1/cmp_luasnip',
                 requires = {
                     use 'L3MON4D3/LuaSnip',
+                    run = "make install_jsregexp",
                     requires = {
                         use "rafamadriz/friendly-snippets",
                         use "molleweide/LuaSnip-snippets.nvim"
