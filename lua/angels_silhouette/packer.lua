@@ -49,17 +49,12 @@ return require('packer').startup(function(use)
             use 'hrsh7th/cmp-nvim-lua',
             use 'hrsh7th/cmp-nvim-lsp',
             use 'hrsh7th/cmp-cmdline',
-            {
-                use 'saadparwaiz1/cmp_luasnip',
-                requires = {
-                    use 'L3MON4D3/LuaSnip',
-                    run = "make install_jsregexp",
-                    requires = {
-                        use "rafamadriz/friendly-snippets",
-                        use "molleweide/LuaSnip-snippets.nvim"
-                    }
-                }
-            }
+            use 'saadparwaiz1/cmp_luasnip',
+            use {
+                "L3MON4D3/LuaSnip",
+                run = "make install_jsregexp",
+                requires = "rafamadriz/friendly-snippets"
+            },
         }
     })
     use 'williamboman/mason-lspconfig.nvim'

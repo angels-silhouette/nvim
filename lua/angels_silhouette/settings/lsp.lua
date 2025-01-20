@@ -7,8 +7,7 @@ require('mason-lspconfig').setup({
     },
 })
 
-local luasnip = require("luasnip")
-luasnip.snippets = require("luasnip-snippets").load_snippets()
+require("luasnip.loaders.from_vscode").lazy_load()
 
 local cmp = require('cmp')
 cmp.setup({
@@ -22,7 +21,7 @@ cmp.setup({
         { name = 'calc' },
         { name = 'path' },
         { name = 'nvim_lua' },
-        { name = 'luasnip', option = { show_autosnippets = true,  use_show_condition = false } }
+        { name = 'luasnip', option = { show_autosnippets = true,  use_show_condition = true } }
     },
     snippet = {
         expand = function(args)
