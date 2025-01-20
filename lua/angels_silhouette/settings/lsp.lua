@@ -7,6 +7,9 @@ require('mason-lspconfig').setup({
     },
 })
 
+local luasnip = require("luasnip")
+luasnip.snippets = require("luasnip-snippets").load_snippets()
+
 local cmp = require('cmp')
 cmp.setup({
     preselect = 'item',
