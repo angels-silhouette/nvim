@@ -89,7 +89,7 @@ vim.keymap.set("n", "<leader>w", vim.cmd.w)
 -- telescope
 local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
-vim.keymap.set('n', '<C-m>', telescope_builtin.man_pages, {})
+vim.keymap.set('n', '<leader>m', telescope_builtin.man_pages, {})
 
 -- git
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
