@@ -10,6 +10,12 @@ return require('packer').startup(function(use)
 
     -- Clipboard
     use 'theprimeagen/harpoon'
+    use {
+        "AckslD/nvim-neoclip.lua",
+        requires = {
+            { 'kkharji/sqlite.lua', module = 'sqlite' },
+        },
+    }
 
     -- File system
     use "stevearc/oil.nvim"

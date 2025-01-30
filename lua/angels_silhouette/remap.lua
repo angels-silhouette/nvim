@@ -103,6 +103,9 @@ local harpoon_ui = require("harpoon.ui")
 vim.keymap.set("n", "<leader>a", harpoon_mark.add_file)
 vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 
+-- neoclip
+vim.keymap.set("n", "<leader>cp", "<cmd>Telescope neoclip<cr>")
+
 -- terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("n", "<leader>>", vim.cmd.terminal)
