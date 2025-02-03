@@ -16,6 +16,9 @@ return require('packer').startup(function(use)
             { 'kkharji/sqlite.lua', module = 'sqlite' },
         },
     }
+    
+    -- Comment
+    use 'terrortylor/nvim-comment'
 
     -- File system
     use "stevearc/oil.nvim"

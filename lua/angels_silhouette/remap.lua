@@ -2,7 +2,7 @@ vim.g.mapleader = " "
 
 -- wordwrap
 vim.keymap.set("n", "<leader>z", function()
----@diagnostic disable-next-line: undefined-field
+    ---@diagnostic disable-next-line: undefined-field
     if vim.opt.wrap:get() then
         vim.opt.wrap = false
     else
@@ -91,6 +91,13 @@ local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>m', telescope_builtin.man_pages, {})
 
+-- comment
+require('nvim_comment').setup {
+    create_mappings = true,
+    line_mapping = "<leader>cl",
+    operator_mapping = "<leader>cc",
+}
+
 -- git
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 vim.keymap.set("n", "<leader>gf", "<cmd>Git fetch<cr>")
@@ -105,7 +112,7 @@ vim.keymap.set("n", "<leader>a", harpoon_mark.add_file)
 vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 
 -- neoclip
-vim.keymap.set("n", "<leader>cp", "<cmd>Telescope neoclip<cr>")
+vim.keymap.set("n", "<leader>cb", "<cmd>Telescope neoclip<cr>")
 
 -- terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
