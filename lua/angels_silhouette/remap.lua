@@ -21,6 +21,26 @@ vim.keymap.set("n", "<C-Down>", "<cmd>resize +2<cr>")
 vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>")
 vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>")
 
+-- Oil
+require("oil").setup {
+    use_default_keymaps = true,
+    keymaps = {
+        ["g?"] = { "actions.show_help", mode = "n" },
+        ["<CR>"] = "actions.select",
+        ["<C-p>"] = "actions.preview",
+        ["<C-c>"] = { "actions.close", mode = "n" },
+        ["<C-l>"] = "actions.refresh",
+        ["-"] = { "actions.parent", mode = "n" },
+        ["_"] = { "actions.open_cwd", mode = "n" },
+        ["`"] = { "actions.cd", mode = "n" },
+        ["~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+        ["gs"] = { "actions.change_sort", mode = "n" },
+        ["gx"] = "actions.open_external",
+        ["g."] = { "actions.toggle_hidden", mode = "n" },
+        ["g\\"] = { "actions.toggle_trash", mode = "n" },
+    },
+}
+
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
@@ -113,6 +133,38 @@ vim.keymap.set("n", "<leader>l", harpoon_ui.toggle_quick_menu)
 
 -- neoclip
 vim.keymap.set("n", "<leader>cb", "<cmd>Telescope neoclip<cr>")
+require("neoclip").setup {
+    keys = {
+        telescope = {
+            i = {
+                select = '<cr>',
+                paste = '<c-p>',
+                paste_behind = '<c-k>',
+                replay = '<c-q>', -- replay a macro
+                delete = '<c-d>', -- delete an entry
+                edit = '<c-e>',   -- edit an entry
+                custom = {},
+            },
+            n = {
+                select = '<cr>',
+                paste = 'p',
+                --- It is possible to map to more than one key.
+                -- paste = { 'p', '<c-p>' },
+                paste_behind = 'P',
+                replay = 'q',
+                delete = 'd',
+                edit = 'e',
+                custom = {},
+            },
+        },
+        fzf = {
+            select = 'default',
+            paste = 'ctrl-p',
+            paste_behind = 'ctrl-k',
+            custom = {},
+        },
+    },
+}
 
 -- terminal
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
