@@ -11,8 +11,8 @@ vim.keymap.set("n", "<leader>z", function()
 end)
 
 -- tabs
-vim.keymap.set("n", "<leader>n", vim.cmd.tabn)
-vim.keymap.set("n", "<leader>p", vim.cmd.tabp)
+vim.keymap.set("n", "<leader>p", vim.cmd.tabn)
+vim.keymap.set("n", "<leader>o", vim.cmd.tabp)
 vim.keymap.set("n", "<leader>nt", vim.cmd.tabnew)
 
 -- resize
@@ -110,6 +110,7 @@ vim.keymap.set("n", "<leader>w", vim.cmd.w)
 local telescope_builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', telescope_builtin.find_files, {})
 vim.keymap.set('n', '<leader>m', telescope_builtin.man_pages, {})
+vim.keymap.set('n', '<leader>bf', telescope_builtin.buffers, {})
 
 -- comment
 require('nvim_comment').setup {
